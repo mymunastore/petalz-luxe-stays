@@ -7,6 +7,7 @@ export const translations = {
       rooms: "Rooms",
       amenities: "Amenities",
       lounge: "Lounge",
+      menu: "Menu",
       gallery: "Gallery",
       reviews: "Reviews",
       contact: "Contact"
@@ -102,6 +103,7 @@ export const translations = {
       rooms: "Ime ụlọ",
       amenities: "Ihe eji eme",
       lounge: "Ebe ezumike",
+      menu: "Menu",
       gallery: "Foto",
       reviews: "Ntụle",
       contact: "Kpọtụrụ"
@@ -145,6 +147,7 @@ export const translations = {
       rooms: "Awọn yara",
       amenities: "Awọn ohun elo",
       lounge: "Isinmi",
+      menu: "Menu",
       gallery: "Aworan",
       reviews: "Awọn atunwo",
       contact: "Olubasọrọ"
@@ -188,6 +191,7 @@ export const translations = {
       rooms: "Dakuna",
       amenities: "Kayan aiki",
       lounge: "Wurin hutawa",
+      menu: "Menu",
       gallery: "Hotuna",
       reviews: "Sharhi",
       contact: "Tuntuɓi"

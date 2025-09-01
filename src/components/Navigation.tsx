@@ -14,6 +14,7 @@ const Navigation = () => {
       'nav.rooms': 'Rooms',
       'nav.amenities': 'Amenities',
       'nav.lounge': 'Lounge',
+      'nav.menu': 'Menu',
       'nav.gallery': 'Gallery',
       'nav.reviews': 'Reviews',
       'nav.contact': 'Contact'
@@ -59,6 +60,7 @@ const Navigation = () => {
     { label: t('nav.rooms'), id: 'rooms' },
     { label: t('nav.amenities'), id: 'amenities' },
     { label: t('nav.lounge'), id: 'lounge' },
+    { label: t('nav.menu'), id: 'menu' },
     { label: t('nav.gallery'), id: 'gallery' },
     { label: t('nav.reviews'), id: 'reviews' },
     { label: t('nav.contact'), id: 'contact' },

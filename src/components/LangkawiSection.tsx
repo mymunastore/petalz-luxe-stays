@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Wine, Coffee, Users, Clock } from 'lucide-react';
+import { Wine, Coffee, Users, Clock, MenuIcon } from 'lucide-react';
 import langkawiLounge from '@/assets/langkawi-lounge.jpg';
 
 const LangkawiSection = () => {
@@ -28,6 +28,11 @@ const LangkawiSection = () => {
 
   const scrollToContact = () => {
     const element = document.getElementById('contact');
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const scrollToMenu = () => {
+    const element = document.getElementById('menu');
     element?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -68,12 +73,22 @@ const LangkawiSection = () => {
                 ambiance for every occasion.
               </p>
 
-              <Button 
-                onClick={scrollToContact}
-                className="petalz-btn-primary font-heading px-8"
-              >
-                Reserve a Table
-              </Button>
+              <div className="flex flex-wrap gap-4">
+                <Button 
+                  onClick={scrollToMenu}
+                  className="petalz-btn-primary font-heading px-8"
+                >
+                  <MenuIcon className="h-4 w-4 mr-2" />
+                  View Menu
+                </Button>
+                <Button 
+                  onClick={scrollToContact}
+                  variant="outline"
+                  className="font-heading px-8 border-petalz-white/30 text-petalz-white hover:bg-petalz-white/10"
+                >
+                  Reserve a Table
+                </Button>
+              </div>
             </div>
           </div>
 
