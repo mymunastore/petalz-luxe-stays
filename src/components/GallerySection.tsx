@@ -1,46 +1,35 @@
 import { useState } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import studioRoom from '@/assets/studio-room.jpg';
-import suiteRoom from '@/assets/suite-room.jpg';
-import oneBedroomRoom from '@/assets/one-bedroom.jpg';
-import langkawiLounge from '@/assets/langkawi-lounge.jpg';
-import heroBuilding from '@/assets/hero-building.jpg';
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const images = [
     {
-      src: heroBuilding,
-      alt: "Petalz Home exterior view",
-      title: "Building Exterior"
+      src: "/lovable-uploads/60e4b0a6-f53c-4aa9-acb5-2d30cbe12862.png",
+      alt: "Petalz Home and Langkawi Lounge exterior view",
+      title: "Langkawi Lounge Exterior"
     },
     {
-      src: studioRoom,
-      alt: "Studio Executive room interior",
-      title: "Studio Executive"
+      src: "/lovable-uploads/888c31b2-4272-4b9c-b222-4ff8d1646320.png",
+      alt: "Premium studio suite with kitchen and dining area",
+      title: "Premium Studio Suite"
     },
     {
-      src: suiteRoom,
-      alt: "Self Contained Suite interior",
-      title: "Self Contained Suite"
+      src: "/lovable-uploads/9f9d9711-b8c1-40de-b520-e7ab52fd7247.png",
+      alt: "Elegant bedroom with blue accent walls and white furniture",
+      title: "Deluxe Room Interior"
     },
     {
-      src: oneBedroomRoom,
-      alt: "One Bedroom Apartment interior",
-      title: "One Bedroom Apartment"
+      src: "/lovable-uploads/ce852e1c-1291-48c6-9efe-11e647deadc6.png",
+      alt: "Modern bedroom with contemporary design and ample storage",
+      title: "Modern Bedroom Suite"
     },
     {
-      src: langkawiLounge,
-      alt: "Langkawi Lounge Bar & Café",
-      title: "Langkawi Lounge"
-    },
-    // Duplicate some images for a fuller gallery
-    {
-      src: studioRoom,
-      alt: "Studio room detail view",
-      title: "Room Details"
+      src: "/lovable-uploads/70b3c540-002e-4703-b08f-bb92fc2cfe9f.png",
+      alt: "Spacious bedroom with ceiling fan and elegant blue decor",
+      title: "Executive Bedroom"
     }
   ];
 
