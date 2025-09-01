@@ -42,28 +42,55 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    /* Custom Petalz Colors */
-    --petalz-gold: 48 89% 48%;
-    --petalz-gold-light: 48 100% 70%;
-    --petalz-gold-dark: 45 85% 35%;
-    --petalz-black: 0 0% 0%;
-    --petalz-white: 0 0% 100%;
-    --petalz-gray: 0 0% 96%;
-    --petalz-gray-dark: 0 0% 20%;
+    /* Sophisticated Modern Color Palette */
+    --petalz-gold: 43 84% 60%;
+    --petalz-gold-light: 43 100% 75%;
+    --petalz-gold-dark: 43 85% 35%;
+    --petalz-gold-muted: 43 30% 85%;
+    --petalz-champagne: 50 40% 92%;
+    --petalz-bronze: 28 45% 45%;
+    --petalz-black: 220 13% 9%;
+    --petalz-charcoal: 218 11% 15%;
+    --petalz-white: 60 9% 98%;
+    --petalz-cream: 48 15% 96%;
+    --petalz-gray: 210 10% 96%;
+    --petalz-gray-medium: 215 14% 34%;
+    --petalz-gray-dark: 220 13% 18%;
+    --petalz-sage: 120 20% 85%;
+    --petalz-navy: 213 35% 15%;
 
-    /* Gradients */
+    /* Sophisticated Gradients */
     --gradient-gold: linear-gradient(135deg, hsl(var(--petalz-gold)), hsl(var(--petalz-gold-light)));
-    --gradient-warm: linear-gradient(135deg, hsl(var(--petalz-gold) / 0.1), hsl(var(--petalz-gold) / 0.05));
-    --gradient-elegant: linear-gradient(180deg, hsl(var(--petalz-white)), hsl(var(--petalz-gray)));
+    --gradient-champagne: linear-gradient(135deg, hsl(var(--petalz-champagne)), hsl(var(--petalz-gold-muted)));
+    --gradient-warm: linear-gradient(135deg, hsl(var(--petalz-gold) / 0.08), hsl(var(--petalz-champagne) / 0.12));
+    --gradient-elegant: linear-gradient(180deg, hsl(var(--petalz-white)), hsl(var(--petalz-cream)));
+    --gradient-premium: linear-gradient(135deg, hsl(var(--petalz-navy)), hsl(var(--petalz-charcoal)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--petalz-navy) / 0.85), hsl(var(--petalz-charcoal) / 0.75));
 
-    /* Shadows */
-    --shadow-elegant: 0 10px 30px -10px hsl(var(--petalz-gold) / 0.3);
-    --shadow-gold: 0 0 40px hsl(var(--petalz-gold) / 0.4);
-    --shadow-soft: 0 4px 20px hsl(var(--petalz-black) / 0.1);
+    /* Modern Shadows */
+    --shadow-soft: 0 2px 8px hsl(var(--petalz-black) / 0.04), 0 1px 3px hsl(var(--petalz-black) / 0.08);
+    --shadow-medium: 0 4px 12px hsl(var(--petalz-black) / 0.08), 0 2px 4px hsl(var(--petalz-black) / 0.04);
+    --shadow-large: 0 8px 25px hsl(var(--petalz-black) / 0.12), 0 3px 8px hsl(var(--petalz-black) / 0.08);
+    --shadow-elegant: 0 12px 40px -8px hsl(var(--petalz-gold) / 0.2);
+    --shadow-gold: 0 0 35px hsl(var(--petalz-gold) / 0.3);
+    --shadow-premium: 0 20px 60px -12px hsl(var(--petalz-navy) / 0.35);
 
-    /* Typography */
-    --font-heading: 'Playfair Display', serif;
-    --font-body: 'Lato', sans-serif;
+    /* Modern Typography */
+    --font-display: 'Cormorant Garamond', serif;
+    --font-heading: 'Crimson Text', serif;
+    --font-body: 'Inter', sans-serif;
+    
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 3.75rem;
 
     /* Animations */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -131,11 +158,42 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body antialiased;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1 {
+    font-family: var(--font-display);
+    @apply text-5xl md:text-6xl font-light tracking-tight leading-none;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    @apply text-4xl md:text-5xl font-light tracking-tight;
+  }
+
+  h3 {
     font-family: var(--font-heading);
+    @apply text-2xl md:text-3xl font-semibold;
+  }
+
+  h4, h5, h6 {
+    font-family: var(--font-heading);
+    @apply font-semibold;
+  }
+
+  p {
+    @apply text-base leading-7 tracking-wide;
+  }
+
+  .text-display {
+    font-family: var(--font-display);
+    @apply font-light tracking-tight;
+  }
+
+  .text-elegant {
+    font-family: var(--font-heading);
+    @apply font-normal italic;
   }
 }
 
@@ -146,7 +204,7 @@ All colors MUST be HSL.
   }
 
   .petalz-section {
-    @apply py-16 px-4 lg:px-8;
+    @apply py-20 px-4 lg:px-8;
   }
 
   .petalz-container {
@@ -154,7 +212,11 @@ All colors MUST be HSL.
   }
 
   .petalz-card {
-    @apply bg-card rounded-xl shadow-soft border p-6 hover:shadow-elegant transition-all duration-300;
+    @apply bg-card rounded-2xl shadow-medium border border-petalz-gray/50 p-8 hover:shadow-elegant hover:border-petalz-gold/30 transition-all duration-500;
+  }
+
+  .petalz-card-premium {
+    @apply bg-gradient-to-br from-petalz-white to-petalz-cream rounded-2xl shadow-premium border border-petalz-gold/20 p-8 hover:shadow-elegant hover:scale-105 transition-all duration-500;
   }
 
   .petalz-gradient-text {
@@ -164,13 +226,25 @@ All colors MUST be HSL.
     -webkit-text-fill-color: transparent;
   }
 
+  .petalz-gradient-champagne {
+    background: var(--gradient-champagne);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   .petalz-btn-primary {
     background: var(--gradient-gold);
-    @apply text-petalz-black font-semibold px-8 py-3 rounded-full shadow-soft hover:shadow-gold transition-all duration-300 transform hover:scale-105;
+    @apply text-petalz-black font-semibold px-10 py-4 rounded-full shadow-medium hover:shadow-gold transition-all duration-300 transform hover:scale-105 hover:-translate-y-1;
   }
 
   .petalz-btn-secondary {
-    @apply border-2 border-petalz-gold text-petalz-gold bg-transparent font-semibold px-8 py-3 rounded-full hover:bg-petalz-gold hover:text-petalz-black transition-all duration-300;
+    @apply border-2 border-petalz-gold text-petalz-gold bg-transparent font-semibold px-10 py-4 rounded-full hover:bg-petalz-gold hover:text-petalz-black hover:shadow-gold transition-all duration-300 transform hover:scale-105;
+  }
+
+  .petalz-btn-premium {
+    background: var(--gradient-premium);
+    @apply text-petalz-white font-semibold px-10 py-4 rounded-full shadow-premium hover:shadow-elegant transition-all duration-300 transform hover:scale-105 hover:-translate-y-1;
   }
 
   .room-card {
