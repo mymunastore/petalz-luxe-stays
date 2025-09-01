@@ -34,6 +34,7 @@ const Navigation = () => {
     { label: 'Amenities', id: 'amenities' },
     { label: 'Lounge', id: 'lounge' },
     { label: 'Gallery', id: 'gallery' },
+    { label: 'Reviews', id: 'reviews' },
     { label: 'Contact', id: 'contact' },
   ];
 
