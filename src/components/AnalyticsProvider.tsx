@@ -10,10 +10,13 @@ const AnalyticsProvider = ({ children }: AnalyticsProviderProps) => {
   const location = useLocation();
 
   useEffect(() => {
-    // Initialize analytics on first load
-    initGA();
-    initFacebookPixel();
-    trackPerformance();
+    // Initialize analytics only once
+    if (!window._analyticsInitialized) {
+      initGA();
+      initFacebookPixel();
+      trackPerformance();
+      window._analyticsInitialized = true;
+    }
   }, []);
 
   useEffect(() => {

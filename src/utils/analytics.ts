@@ -11,6 +11,7 @@ declare global {
       version?: string;
       push?: (args: any[]) => void;
     };
+    _analyticsInitialized?: boolean;
   }
 }
 
@@ -19,7 +20,7 @@ export const FB_PIXEL_ID = 'XXXXXXXXXX'; // Replace with your Facebook Pixel ID
 
 // Initialize Google Analytics
 export const initGA = () => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || window._analyticsInitialized) return;
 
   // Load GA4 script
   const script1 = document.createElement('script');
@@ -40,21 +41,26 @@ export const initGA = () => {
 
 // Initialize Facebook Pixel
 export const initFacebookPixel = () => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined' || window._analyticsInitialized) return;
 
-  window.fbq = window.fbq || function() {
-    (window.fbq.q = window.fbq.q || []).push(arguments);
-  };
+  // Only initialize if not already done
+  if (!window.fbq) {
+    window.fbq = function() {
+      (window.fbq.q = window.fbq.q || []).push(arguments);
+    };
+  }
+  
   if (!window.fbq.loaded) {
     const script = document.createElement('script');
     script.async = true;
     script.src = 'https://connect.facebook.net/en_US/fbevents.js';
     document.head.appendChild(script);
     window.fbq.loaded = true;
+    
+    // Only init and track PageView once
+    window.fbq('init', FB_PIXEL_ID);
+    window.fbq('track', 'PageView');
   }
-  
-  window.fbq('init', FB_PIXEL_ID);
-  window.fbq('track', 'PageView');
 };
 
 // Track page view
@@ -69,8 +75,8 @@ export const trackPageView = (path: string, title?: string) => {
     });
   }
   
-  // Facebook Pixel
-  if (window.fbq) {
+  // Facebook Pixel - only track subsequent page views, not the initial one
+  if (window.fbq && window._analyticsInitialized) {
     window.fbq('track', 'PageView');
   }
 };
