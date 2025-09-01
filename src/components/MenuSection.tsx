@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { Utensils, Coffee, Wine, Soup, Pizza, Sandwich, ChefHat } from 'lucide-react';
+import { Utensils, Coffee, Wine, Soup, Pizza, Sandwich, ChefHat, Martini, Beer, Zap, Droplets, GlassWater } from 'lucide-react';
 
 const MenuSection = () => {
   const [activeCategory, setActiveCategory] = useState('proteins');
@@ -135,7 +135,7 @@ const MenuSection = () => {
     },
     beverages: {
       icon: Coffee,
-      title: "Beverages",
+      title: "Hot Beverages & Smoothies",
       items: [
         { name: "Chinese Lemon Tea", price: "10,000" },
         { name: "Chinese Tea with Lime", price: "7,999" },
@@ -154,6 +154,217 @@ const MenuSection = () => {
         { name: "Ginger and Green Tea", price: "4,999" },
         { name: "Orange Fresh Juice", price: "3,999" },
         { name: "Coffee", price: "3,999" }
+      ]
+    },
+    mocktails: {
+      icon: Martini,
+      title: "Mocktails",
+      items: [
+        { name: "Berry Mojito", price: "8,999" },
+        { name: "Frozen Daiquiri", price: "6,999" },
+        { name: "Metropolitan Mocktail", price: "6,999" },
+        { name: "Pine Tonic", price: "6,999" },
+        { name: "Rosemary Citrus Spritzer", price: "6,999" },
+        { name: "Strawberry Xtreem", price: "6,999" },
+        { name: "Watermelon & Citrus Cooler", price: "6,999" },
+        { name: "Strawberry Daiquiri", price: "6,999" },
+        { name: "Chapman", price: "5,999" },
+        { name: "Sea Breaze", price: "5,999" },
+        { name: "Tropicana", price: "5,999" },
+        { name: "Virgin Colada", price: "5,999" },
+        { name: "Virgin Mojito", price: "5,999" },
+        { name: "Virgin Strawberry Daiquiri", price: "5,000" },
+        { name: "Virgin Mojito", price: "5,000" },
+        { name: "Virgin Pinacola", price: "5,000" },
+        { name: "Minted Lemonade", price: "5,000" },
+        { name: "Love Affairs", price: "5,000" },
+        { name: "Forbidden Fruit", price: "5,000" },
+        { name: "Chapman", price: "5,000" },
+        { name: "Lemonade", price: "5,000" }
+      ]
+    },
+    milkshakes: {
+      icon: Coffee,
+      title: "Milkshakes",
+      items: [
+        { name: "Caramel Frappuccino", price: "8,999" },
+        { name: "Cookies and Cream Milkshake", price: "8,999" },
+        { name: "Oreo Milkshake", price: "8,999" },
+        { name: "Banana Milkshake", price: "7,999" },
+        { name: "Chocolate Milkshake", price: "7,999" },
+        { name: "Parfait", price: "7,999" },
+        { name: "Vanilla Milkshake", price: "7,999" },
+        { name: "Strawberry Milkshake", price: "7,999" },
+        { name: "Chocolate Milkshake", price: "5,999" },
+        { name: "Snicker Milkshake", price: "999" },
+        { name: "Takeout Cup", price: "499" }
+      ]
+    },
+    cocktails: {
+      icon: Martini,
+      title: "Cocktails",
+      items: [
+        { name: "Sip and Paint", price: "14,999", featured: true },
+        { name: "Adios Motherfucker", price: "8,999" },
+        { name: "Liquid Cocaine", price: "8,999" },
+        { name: "Tequila Sunrise", price: "7,999" },
+        { name: "Pink Lady", price: "7,999" },
+        { name: "Paint", price: "7,999" },
+        { name: "Lemonade", price: "7,999" },
+        { name: "Whiskey Sour", price: "7,999" },
+        { name: "Adios Moda Fucka (AMF)", price: "7,999" },
+        { name: "Walk Me Down", price: "7,999" },
+        { name: "Wild Sex", price: "7,999" },
+        { name: "Sex on the Beach", price: "7,999" },
+        { name: "Long Island Tea", price: "6,999" },
+        { name: "Langkawi Lifestle", price: "6,999" },
+        { name: "White Russia", price: "5,999" },
+        { name: "Moscow Mule", price: "5,999" },
+        { name: "Pinacola", price: "5,999" },
+        { name: "Strawberry Daiquiri", price: "5,999" },
+        { name: "Whiskey Sour", price: "5,999" },
+        { name: "Mai Tai", price: "5,999" }
+      ]
+    },
+    shooters: {
+      icon: Zap,
+      title: "Shooters",
+      items: [
+        { name: "B55 Bomber", price: "2,999" },
+        { name: "Brain Damage", price: "2,999" },
+        { name: "Kiss Me", price: "2,999" },
+        { name: "Tequila Shot", price: "2,999" }
+      ]
+    },
+    vodka: {
+      icon: Wine,
+      title: "Vodka & Premium Spirits",
+      items: [
+        { name: "Avion Tequila", price: "659,999", featured: true },
+        { name: "Fly Emotion Superior", price: "59,999", featured: true },
+        { name: "Neft Vodka", price: "59,999" },
+        { name: "Buen Amigo Tequila", price: "59,999" },
+        { name: "Olmeca Tequila", price: "59,999" },
+        { name: "Olmeca Tequila (Dark Chocolate)", price: "54,999" },
+        { name: "Smirnoff (Citrus)", price: "49,999" },
+        { name: "Bombay Sapphire", price: "49,999" },
+        { name: "Olmeca Tequila", price: "39,999" },
+        { name: "Hillscot Apple Vodka", price: "31,999" },
+        { name: "Absolut Vodka", price: "31,999" },
+        { name: "Hillscot Graberry", price: "31,999" },
+        { name: "Bacardi (Gold)", price: "29,999" },
+        { name: "Bacardi (White)", price: "29,999" },
+        { name: "Flirt Vodka", price: "24,999" },
+        { name: "Status Vodka", price: "24,499" },
+        { name: "Gordons Pink", price: "17,999" },
+        { name: "Gordons White", price: "17,999" },
+        { name: "Perfect Ice Vodka", price: "14,999" },
+        { name: "Asconi", price: "14,999" },
+        { name: "Kensington Dry Gin", price: "14,999" },
+        { name: "Smirnoff X1", price: "12,999" }
+      ]
+    },
+    cognac: {
+      icon: Wine,
+      title: "Cognac & Brandy",
+      items: [
+        { name: "Hennessy XO", price: "692,999", featured: true },
+        { name: "Martell XO", price: "549,999", featured: true },
+        { name: "Hennessy VSOP", price: "179,999" },
+        { name: "Martell Blue Swift", price: "166,999" },
+        { name: "Hennessy VS", price: "99,999" },
+        { name: "Martell VS", price: "89,999" },
+        { name: "Singleton", price: "94,999" },
+        { name: "American Honey", price: "39,999" },
+        { name: "Brandy Almondia VSOP", price: "29,999" },
+        { name: "Amarula", price: "19,999" },
+        { name: "Status Chocolate", price: "14,999" },
+        { name: "Kalahari", price: "9,999" }
+      ]
+    },
+    champagne: {
+      icon: Martini,
+      title: "Champagne & Wine",
+      items: [
+        { name: "Moet Rose", price: "360,999", featured: true },
+        { name: "Moet Brut", price: "248,999", featured: true },
+        { name: "Balairue Rose Non Light", price: "89,999" },
+        { name: "Balairue Rose Light", price: "99,999" },
+        { name: "Masia Dutti Rose", price: "36,999" },
+        { name: "Andre Champagne", price: "25,999" }
+      ]
+    },
+    beer: {
+      icon: Beer,
+      title: "Beer Selection",
+      items: [
+        { name: "Budweiser", price: "2,499" },
+        { name: "Heineken", price: "1,999" },
+        { name: "Trophy", price: "1,999" },
+        { name: "Smirnoff Ice - Original", price: "1,999" },
+        { name: "Double Black - Smirnoffice", price: "1,999" },
+        { name: "Gulder", price: "1,999" },
+        { name: "Medium Stout", price: "1,999" },
+        { name: "Extra Smooth", price: "2,499" },
+        { name: "Champion", price: "1,499" },
+        { name: "Champion (Ginger)", price: "1,499" },
+        { name: "Legend Twist", price: "1,499" },
+        { name: "Desperado", price: "1,499" },
+        { name: "Hero", price: "1,499" },
+        { name: "Legend", price: "1,499" },
+        { name: "Star Radler", price: "1,499" },
+        { name: "Tiger", price: "1,499" },
+        { name: "33 Export", price: "1,499" },
+        { name: "Origin Beer", price: "1,499" },
+        { name: "Star Beer", price: "1,499" },
+        { name: "Star Lite", price: "1,499" },
+        { name: "Life", price: "1,499" },
+        { name: "Flying Fish", price: "1,499" },
+        { name: "Heineken (Can)", price: "1,499" }
+      ]
+    },
+    softdrinks: {
+      icon: GlassWater,
+      title: "Soft Drinks & Juices",
+      items: [
+        { name: "Cramberry", price: "10,999" },
+        { name: "Chivita Exotic", price: "3,999" },
+        { name: "Chivita Pineapple", price: "3,999" },
+        { name: "Holandia Yoghurt", price: "3,999" },
+        { name: "Chivita Orange", price: "3,999" },
+        { name: "Chivita Active", price: "3,999" },
+        { name: "Stute Cranberry Can", price: "2,499" },
+        { name: "Vita Milk", price: "1,999" },
+        { name: "Maltina", price: "1,499" },
+        { name: "Schweppes", price: "1,499" },
+        { name: "Can Favrouz", price: "1,499" },
+        { name: "Amstel Malt", price: "1,499" },
+        { name: "Can Schwepps", price: "1,199" },
+        { name: "Coke", price: "999" },
+        { name: "Fayrous", price: "999" },
+        { name: "Soda Water", price: "999" },
+        { name: "Sprite", price: "999" },
+        { name: "Can Sprite", price: "999" },
+        { name: "Fanta", price: "999" },
+        { name: "Water", price: "499" }
+      ]
+    },
+    energy: {
+      icon: Zap,
+      title: "Energy Drinks & Bitters",
+      items: [
+        { name: "Monster", price: "3,499" },
+        { name: "Power Horse", price: "3,499" },
+        { name: "Red Bull", price: "2,999" },
+        { name: "Black Bullet", price: "2,499" },
+        { name: "Blue Bullet", price: "2,499" },
+        { name: "Climax Pet", price: "1,999" },
+        { name: "Origin Bitters Small", price: "1,999" },
+        { name: "Ace Bitter", price: "1,999" },
+        { name: "Odogwu Bitter", price: "1,999" },
+        { name: "Action Bitters", price: "1,999" },
+        { name: "Fearless", price: "1,499" },
+        { name: "Predator", price: "1,499" }
       ]
     },
     spirits: {
