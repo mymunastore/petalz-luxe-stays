@@ -10,7 +10,20 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Language } from '@/translations';
 
 const LanguageSelector = () => {
-  const { language, setLanguage } = useLanguage();
+  // Default values for when context is not available
+  let language: Language = 'en';
+  let setLanguage = (lang: Language) => {
+    console.warn('Language context not available, language change ignored');
+  };
+
+  // Try to use context with fallback
+  try {
+    const context = useLanguage();
+    language = context.language;
+    setLanguage = context.setLanguage;
+  } catch (error) {
+    console.warn('Language context not available, using fallback');
+  }
 
   const languages = [
     { code: 'en' as Language, name: 'English', flag: '🇺🇸' },

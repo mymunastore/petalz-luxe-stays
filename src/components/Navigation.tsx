@@ -6,7 +6,30 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import petalzLogo from '@/assets/petalz-official-logo.png';
 
 const Navigation = () => {
-  const { t } = useLanguage();
+  // Fallback function for translations when context is not available
+  const fallbackT = (key: string): string => {
+    const fallbackTranslations: Record<string, string> = {
+      'nav.home': 'Home',
+      'nav.about': 'About',
+      'nav.rooms': 'Rooms',
+      'nav.amenities': 'Amenities',
+      'nav.lounge': 'Lounge',
+      'nav.gallery': 'Gallery',
+      'nav.reviews': 'Reviews',
+      'nav.contact': 'Contact'
+    };
+    return fallbackTranslations[key] || key;
+  };
+
+  // Use context with fallback
+  let t = fallbackT;
+  try {
+    const context = useLanguage();
+    t = context.t;
+  } catch (error) {
+    console.warn('Language context not available, using fallback translations');
+  }
+
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDark, setIsDark] = useState(false);

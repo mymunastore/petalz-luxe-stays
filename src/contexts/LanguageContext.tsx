@@ -21,7 +21,7 @@ interface LanguageProviderProps {
   children: React.ReactNode;
 }
 
-export const LanguageProvider = ({ children }: LanguageProviderProps) => {
+const LanguageProvider = ({ children }: LanguageProviderProps) => {
   const [language, setLanguage] = useState<Language>('en');
 
   useEffect(() => {
@@ -73,4 +73,5 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
   );
 };
 
+export { LanguageProvider };
 export default LanguageProvider;
