@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -73,12 +74,12 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <img src="/lovable-uploads/2bcbe519-9032-4564-b0e2-d50f1c27ffb3.png" alt="Petalz Home" className="h-12 w-auto rounded-lg" />
+            <img src="/lovable-uploads/2bcbe519-9032-4564-b0e2-d50f1c27ffb3.png" alt="Petalz Home" className="h-12 w-12 object-contain rounded-lg" />
             <div className="hidden sm:block">
-              <h1 className="font-heading text-xl font-bold petalz-gradient-text">
+              <h1 className="font-heading text-xl font-bold petalz-gradient-text leading-tight">
                 Petalz Home
               </h1>
-              <p className="text-xs text-muted-foreground">Langkawi Lounge, Bar & Café</p>
+              <p className="text-xs text-muted-foreground leading-tight">Langkawi Lounge, Bar & Café</p>
             </div>
           </div>
 
