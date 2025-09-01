@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import petalzLogo from '@/assets/petalz-logo.jpg';
+import petalzLogo from '@/assets/petalz-official-logo.png';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);

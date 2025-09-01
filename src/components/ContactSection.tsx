@@ -31,10 +31,46 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.name || !formData.phone || !formData.checkIn || !formData.checkOut || !formData.roomType || !formData.guests) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields before submitting.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // Create WhatsApp message
+    const message = `Hello! I'd like to make a reservation at Petalz Home.
+
+*Booking Details:*
+📝 Name: ${formData.name}
+📞 Phone: ${formData.phone}
+${formData.email ? `✉️ Email: ${formData.email}` : ''}
+📅 Check-in: ${formData.checkIn}
+📅 Check-out: ${formData.checkOut}
+🏠 Room Type: ${formData.roomType === 'studio' ? 'Studio Executive (₦35,000)' : 
+                    formData.roomType === 'suite' ? 'Self Contained Suite (₦45,000)' : 
+                    'One Bedroom Apartment (₦60,000)'}
+👥 Guests: ${formData.guests}
+${formData.message ? `💬 Special Requests: ${formData.message}` : ''}
+
+Please confirm availability and pricing. Thank you!`;
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/2348144257874?text=${encodedMessage}`;
+    
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, '_blank');
+    
     toast({
-      title: "Booking Request Submitted!",
-      description: "We'll contact you within 24 hours to confirm your reservation.",
+      title: "Redirected to WhatsApp!",
+      description: "Your booking details have been sent via WhatsApp for confirmation.",
     });
+    
     // Reset form
     setFormData({
       name: '',
@@ -218,7 +254,7 @@ const ContactSection = () => {
                 </div>
 
                 <Button type="submit" className="w-full petalz-btn-primary font-heading text-lg py-3">
-                  Submit Booking Request
+                  Book via WhatsApp
                 </Button>
               </form>
             </div>
