@@ -1,0 +1,26 @@
+{
+  "name": "Petalz Home - Langkawi Lounge, Bar & Café",
+  "short_name": "Petalz Home",
+  "description": "Luxury apartments and lounge in Uyo, Nigeria. Stay in Style, Relax in Comfort.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F1C40F",
+  "theme_color": "#F1C40F",
+  "icons": [
+    {
+      "src": "/petalz-official-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/petalz-official-logo.png", 
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "travel", "hospitality"],
+  "lang": "en-NG",
+  "orientation": "portrait-primary"
+}

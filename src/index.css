@@ -184,4 +184,50 @@ All colors MUST be HSL.
   .scroll-reveal.revealed {
     @apply opacity-100 translate-y-0;
   }
+
+  /* Performance optimizations */
+  .lazy-loading {
+    @apply opacity-0 transition-opacity duration-300;
+  }
+
+  .lazy-loaded {
+    @apply opacity-100;
+  }
+
+  /* Enhanced animations */
+  .fade-in-up {
+    @apply opacity-0 translate-y-4 transition-all duration-500 ease-out;
+  }
+
+  .fade-in-up.active {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .stagger-animation {
+    animation-delay: calc(var(--animation-order) * 100ms);
+  }
+
+  /* Smooth focus indicators */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-petalz-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  /* Performance: will-change for animated elements */
+  .will-animate {
+    will-change: transform, opacity;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-reveal,
+    .fade-in-up,
+    .room-card,
+    .petalz-btn-primary {
+      @apply transition-none;
+    }
+    
+    .petalz-btn-primary:hover {
+      @apply transform-none;
+    }
+  }
 }

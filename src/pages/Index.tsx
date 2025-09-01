@@ -7,6 +7,7 @@ import AmenitiesSection from '@/components/AmenitiesSection';
 import LangkawiSection from '@/components/LangkawiSection';
 import GallerySection from '@/components/GallerySection';
 import ReviewsSection from '@/components/ReviewsSection';
+import NewsletterSection from '@/components/NewsletterSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 
@@ -46,6 +47,7 @@ const Index = () => {
         <LangkawiSection />
         <GallerySection />
         <ReviewsSection />
+        <NewsletterSection />
         <ContactSection />
       </main>
       <Footer />

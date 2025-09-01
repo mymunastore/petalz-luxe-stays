@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
+import LoadingSpinner from '@/components/LoadingSpinner';
 import { 
   Phone, 
   MapPin, 
@@ -18,6 +19,7 @@ import {
 
 const ContactSection = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -29,18 +31,55 @@ const ContactSection = () => {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    // Validate required fields
-    if (!formData.name || !formData.phone || !formData.checkIn || !formData.checkOut || !formData.roomType || !formData.guests) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields before submitting.",
-        variant: "destructive"
-      });
-      return;
-    }
+    try {
+      // Validate required fields
+      if (!formData.name || !formData.phone || !formData.checkIn || !formData.checkOut || !formData.roomType || !formData.guests) {
+        toast({
+          title: "Missing Information",
+          description: "Please fill in all required fields before submitting.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Validate dates
+      const checkInDate = new Date(formData.checkIn);
+      const checkOutDate = new Date(formData.checkOut);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (checkInDate < today) {
+        toast({
+          title: "Invalid Date",
+          description: "Check-in date cannot be in the past.",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      if (checkOutDate <= checkInDate) {
+        toast({
+          title: "Invalid Date",
+          description: "Check-out date must be after check-in date.",
+          variant: "destructive"
+        });
+        return;
+      }
+
+      // Validate phone number (basic Nigerian format)
+      const phoneRegex = /^(\+234|234|0)[789][01]\d{8}$/;
+      if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
+        toast({
+          title: "Invalid Phone Number",
+          description: "Please enter a valid Nigerian phone number.",
+          variant: "destructive"
+        });
+        return;
+      }
 
     // Create WhatsApp message
     const message = `Hello! I'd like to make a reservation at Petalz Home.
@@ -63,25 +102,38 @@ Please confirm availability and pricing. Thank you!`;
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/2348144257874?text=${encodedMessage}`;
     
-    // Open WhatsApp in new tab
-    window.open(whatsappUrl, '_blank');
-    
-    toast({
-      title: "Redirected to WhatsApp!",
-      description: "Your booking details have been sent via WhatsApp for confirmation.",
-    });
-    
-    // Reset form
-    setFormData({
-      name: '',
-      phone: '',
-      email: '',
-      checkIn: '',
-      checkOut: '',
-      roomType: '',
-      guests: '',
-      message: ''
-    });
+      // Simulate form processing delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Open WhatsApp in new tab
+      window.open(whatsappUrl, '_blank');
+      
+      toast({
+        title: "Redirected to WhatsApp!",
+        description: "Your booking details have been sent via WhatsApp for confirmation.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        checkIn: '',
+        checkOut: '',
+        roomType: '',
+        guests: '',
+        message: ''
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -253,8 +305,19 @@ Please confirm availability and pricing. Thank you!`;
                   />
                 </div>
 
-                <Button type="submit" className="w-full petalz-btn-primary font-heading text-lg py-3">
-                  Book via WhatsApp
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="w-full petalz-btn-primary font-heading text-lg py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <LoadingSpinner size="sm" className="mr-2" />
+                      Sending...
+                    </>
+                  ) : (
+                    'Book via WhatsApp'
+                  )}
                 </Button>
               </form>
             </div>
