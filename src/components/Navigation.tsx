@@ -3,7 +3,6 @@ import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSelector from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
-import petalzLogo from '@/assets/petalz-official-logo.png';
 
 const Navigation = () => {
   // Fallback function for translations when context is not available
@@ -74,7 +73,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <img src={petalzLogo} alt="Petalz Home" className="h-12 w-auto rounded-lg" />
+            <img src="/lovable-uploads/2bcbe519-9032-4564-b0e2-d50f1c27ffb3.png" alt="Petalz Home" className="h-12 w-auto rounded-lg" />
             <div className="hidden sm:block">
               <h1 className="font-heading text-xl font-bold petalz-gradient-text">
                 Petalz Home

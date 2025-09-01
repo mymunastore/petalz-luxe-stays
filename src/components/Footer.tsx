@@ -1,5 +1,4 @@
 import { Instagram, Facebook, Music, Youtube, Phone, MapPin } from 'lucide-react';
-import petalzLogo from '@/assets/petalz-logo.jpg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -24,7 +23,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <img src={petalzLogo} alt="Petalz Home" className="h-12 w-auto rounded-lg" />
+              <img src="/lovable-uploads/2bcbe519-9032-4564-b0e2-d50f1c27ffb3.png" alt="Petalz Home" className="h-12 w-auto rounded-lg" />
               <div>
                 <h3 className="font-heading text-2xl font-bold text-petalz-gold">
                   Petalz Home
