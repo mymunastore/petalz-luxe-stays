@@ -41,26 +41,35 @@ export const initGA = () => {
 
 // Initialize Facebook Pixel
 export const initFacebookPixel = () => {
-  if (typeof window === 'undefined' || window._analyticsInitialized) return;
+  if (typeof window === 'undefined') return;
 
-  // Only initialize if not already done
+  // Prevent multiple initializations
+  if (window._analyticsInitialized || 
+      document.querySelector('script[src*="fbevents.js"]') ||
+      (window.fbq && window.fbq.loaded)) {
+    return;
+  }
+
+  // Initialize fbq function if not exists
   if (!window.fbq) {
     window.fbq = function() {
       (window.fbq.q = window.fbq.q || []).push(arguments);
     };
   }
   
-  if (!window.fbq.loaded) {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-    document.head.appendChild(script);
-    window.fbq.loaded = true;
-    
-    // Only init and track PageView once
-    window.fbq('init', FB_PIXEL_ID);
-    window.fbq('track', 'PageView');
-  }
+  // Load Facebook Pixel script only once
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+  script.onload = () => {
+    // Initialize pixel only after script loads
+    if (window.fbq && !window.fbq.loaded) {
+      window.fbq('init', FB_PIXEL_ID);
+      window.fbq('track', 'PageView');
+      window.fbq.loaded = true;
+    }
+  };
+  document.head.appendChild(script);
 };
 
 // Track page view
