@@ -7,7 +7,7 @@ import AmenitiesSection from '@/components/AmenitiesSection';
 import LangkawiSection from '@/components/LangkawiSection';
 import MenuSection from '@/components/MenuSection';
 import GallerySection from '@/components/GallerySection';
-import InstagramFeed from '@/components/InstagramFeed';
+
 import ReviewsSection from '@/components/ReviewsSection';
 import NewsletterSection from '@/components/NewsletterSection';
 import ContactSection from '@/components/ContactSection';
@@ -49,7 +49,7 @@ const Index = () => {
         <LangkawiSection />
         <MenuSection />
         <GallerySection />
-        <InstagramFeed />
+        
         <ReviewsSection />
         <NewsletterSection />
         <ContactSection />
