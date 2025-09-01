@@ -7,6 +7,8 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import SEOHead from "@/components/SEOHead";
 import StructuredData from "@/components/StructuredData";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import AnalyticsProvider from "@/components/AnalyticsProvider";
+import LanguageProvider from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
@@ -15,20 +17,24 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <SEOHead />
-        <StructuredData />
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-        <WhatsAppWidget />
-      </TooltipProvider>
+      <LanguageProvider>
+        <TooltipProvider>
+          <SEOHead />
+          <StructuredData />
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AnalyticsProvider>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AnalyticsProvider>
+          </BrowserRouter>
+          <WhatsAppWidget />
+        </TooltipProvider>
+      </LanguageProvider>
     </QueryClientProvider>
   </ErrorBoundary>
 );

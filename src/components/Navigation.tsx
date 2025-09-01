@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import LanguageSelector from '@/components/LanguageSelector';
+import { useLanguage } from '@/contexts/LanguageContext';
 import petalzLogo from '@/assets/petalz-official-logo.png';
 
 const Navigation = () => {
+  const { t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -28,14 +31,14 @@ const Navigation = () => {
   };
 
   const navItems = [
-    { label: 'Home', id: 'hero' },
-    { label: 'About', id: 'about' },
-    { label: 'Rooms', id: 'rooms' },
-    { label: 'Amenities', id: 'amenities' },
-    { label: 'Lounge', id: 'lounge' },
-    { label: 'Gallery', id: 'gallery' },
-    { label: 'Reviews', id: 'reviews' },
-    { label: 'Contact', id: 'contact' },
+    { label: t('nav.home'), id: 'hero' },
+    { label: t('nav.about'), id: 'about' },
+    { label: t('nav.rooms'), id: 'rooms' },
+    { label: t('nav.amenities'), id: 'amenities' },
+    { label: t('nav.lounge'), id: 'lounge' },
+    { label: t('nav.gallery'), id: 'gallery' },
+    { label: t('nav.reviews'), id: 'reviews' },
+    { label: t('nav.contact'), id: 'contact' },
   ];
 
   return (
@@ -68,8 +71,10 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
+          {/* Theme Toggle, Language Selector & Mobile Menu */}
+          <div className="flex items-center space-x-2">
+            <LanguageSelector />
+            
             <Button
               variant="ghost"
               size="icon"
