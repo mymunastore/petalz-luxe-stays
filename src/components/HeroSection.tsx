@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
-import heroBuilding from '@/assets/hero-building.jpg';
+import heroBackground from '@/assets/hero-background.png';
 
 const HeroSection = () => {
   const scrollToSection = (id: string) => {
@@ -13,11 +13,11 @@ const HeroSection = () => {
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img 
-          src={heroBuilding} 
-          alt="Petalz Home Luxury Building" 
+          src={heroBackground} 
+          alt="Petalz Home Luxury Interior" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-petalz-black/40 via-petalz-black/30 to-petalz-black/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-petalz-black/20 via-petalz-black/40 to-petalz-black/70"></div>
       </div>
 
       {/* Content */}

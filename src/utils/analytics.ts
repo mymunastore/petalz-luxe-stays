@@ -43,12 +43,15 @@ export const initGA = () => {
 export const initFacebookPixel = () => {
   if (typeof window === 'undefined') return;
 
-  // Prevent multiple initializations
-  if (window._analyticsInitialized || 
+  // Check if already initialized using multiple methods
+  if ((window as any)._fbPixelInitialized || 
       document.querySelector('script[src*="fbevents.js"]') ||
-      (window.fbq && window.fbq.loaded)) {
+      (window.fbq && (window.fbq as any).loaded)) {
     return;
   }
+
+  // Mark as initialized immediately to prevent race conditions
+  (window as any)._fbPixelInitialized = true;
 
   // Initialize fbq function if not exists
   if (!window.fbq) {
@@ -62,11 +65,11 @@ export const initFacebookPixel = () => {
   script.async = true;
   script.src = 'https://connect.facebook.net/en_US/fbevents.js';
   script.onload = () => {
-    // Initialize pixel only after script loads
-    if (window.fbq && !window.fbq.loaded) {
+    // Initialize pixel only after script loads and if not already done
+    if (window.fbq && !(window.fbq as any).loaded) {
       window.fbq('init', FB_PIXEL_ID);
       window.fbq('track', 'PageView');
-      window.fbq.loaded = true;
+      (window.fbq as any).loaded = true;
     }
   };
   document.head.appendChild(script);
