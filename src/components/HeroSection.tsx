@@ -1,9 +1,7 @@
-import { memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
-import { OptimizedImage } from '@/components/ui/optimized-image';
 
-const HeroSection = memo(() => {
+const HeroSection = () => {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
@@ -13,12 +11,10 @@ const HeroSection = memo(() => {
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <OptimizedImage
+        <img 
           src="/lovable-uploads/4202236b-a564-4451-8e39-376f7f46dc56.png" 
           alt="Petalz Home Building with Langkawi Lounge" 
-          className="w-full h-full"
-          objectFit="cover"
-          priority
+          className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-petalz-black/30 via-petalz-black/50 to-petalz-black/80"></div>
       </div>
@@ -70,8 +66,6 @@ const HeroSection = memo(() => {
       <div className="absolute bottom-1/4 right-10 w-48 h-48 bg-petalz-gold/10 rounded-full blur-xl"></div>
     </section>
   );
-});
-
-HeroSection.displayName = 'HeroSection';
+};
 
 export default HeroSection;

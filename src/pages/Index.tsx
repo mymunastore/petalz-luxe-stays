@@ -1,81 +1,60 @@
-import { lazy, Suspense } from 'react';
+import { useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
-import LoadingSpinner from '@/components/LoadingSpinner';
-import { useAnimationOnScroll } from '@/hooks/useIntersectionObserver';
+import AboutSection from '@/components/AboutSection';
+import RoomsSection from '@/components/RoomsSection';
+import AmenitiesSection from '@/components/AmenitiesSection';
+import LangkawiSection from '@/components/LangkawiSection';
+import MenuSection from '@/components/MenuSection';
+import GallerySection from '@/components/GallerySection';
 
-// Lazy load sections for better performance
-const AboutSection = lazy(() => import('@/components/AboutSection'));
-const RoomsSection = lazy(() => import('@/components/RoomsSection'));
-const AmenitiesSection = lazy(() => import('@/components/AmenitiesSection'));
-const LangkawiSection = lazy(() => import('@/components/LangkawiSection'));
-const MenuSection = lazy(() => import('@/components/MenuSection'));
-const GallerySection = lazy(() => import('@/components/GallerySection'));
-const ReviewsSection = lazy(() => import('@/components/ReviewsSection'));
-const NewsletterSection = lazy(() => import('@/components/NewsletterSection'));
-const ContactSection = lazy(() => import('@/components/ContactSection'));
-const Footer = lazy(() => import('@/components/Footer'));
-
-// Loading fallback component
-const SectionLoader = () => (
-  <div className="flex items-center justify-center py-20">
-    <LoadingSpinner size="lg" />
-  </div>
-);
+import ReviewsSection from '@/components/ReviewsSection';
+import NewsletterSection from '@/components/NewsletterSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
 
 const Index = () => {
-  // Use the custom hook for scroll animations
-  useAnimationOnScroll('.scroll-reveal', {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  });
+  useEffect(() => {
+    // Scroll reveal animation
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observe all scroll-reveal elements
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    revealElements.forEach((el) => observer.observe(el));
+
+    return () => {
+      revealElements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navigation />
       <main>
         <HeroSection />
+        <AboutSection />
+        <RoomsSection />
+        <AmenitiesSection />
+        <LangkawiSection />
+        <MenuSection />
+        <GallerySection />
         
-        <Suspense fallback={<SectionLoader />}>
-          <AboutSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <RoomsSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <AmenitiesSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <LangkawiSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <MenuSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <GallerySection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <ReviewsSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <NewsletterSection />
-        </Suspense>
-        
-        <Suspense fallback={<SectionLoader />}>
-          <ContactSection />
-        </Suspense>
+        <ReviewsSection />
+        <NewsletterSection />
+        <ContactSection />
       </main>
-      
-      <Suspense fallback={<SectionLoader />}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
   );
 };

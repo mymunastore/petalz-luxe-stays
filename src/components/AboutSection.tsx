@@ -1,9 +1,7 @@
-import { memo } from 'react';
 import { Building2, Users, Coffee, Shield } from 'lucide-react';
-import { OptimizedImage } from '@/components/ui/optimized-image';
 import studioRoom from '@/assets/studio-room.jpg';
 
-const AboutSection = memo(() => {
+const AboutSection = () => {
   const features = [
     {
       icon: Building2,
@@ -75,12 +73,10 @@ const AboutSection = memo(() => {
           {/* Image */}
           <div className="scroll-reveal lg:pl-8">
             <div className="relative">
-              <OptimizedImage
+              <img 
                 src={studioRoom} 
                 alt="Luxury apartment interior at Petalz Home" 
-                className="w-full h-96 lg:h-[500px] shadow-elegant"
-                objectFit="cover"
-                rounded="2xl"
+                className="w-full h-96 lg:h-[500px] object-cover rounded-2xl shadow-elegant"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-petalz-black/20 to-transparent rounded-2xl"></div>
               
@@ -100,8 +96,6 @@ const AboutSection = memo(() => {
       </div>
     </section>
   );
-});
-
-AboutSection.displayName = 'AboutSection';
+};
 
 export default AboutSection;

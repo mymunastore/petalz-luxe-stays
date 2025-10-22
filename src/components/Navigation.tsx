@@ -1,10 +1,11 @@
-import { useState, useEffect, memo, useCallback } from 'react';
+
+import { useState, useEffect } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSelector from '@/components/LanguageSelector';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const Navigation = memo(() => {
+const Navigation = () => {
   // Fallback function for translations when context is not available
   const fallbackT = (key: string): string => {
     const fallbackTranslations: Record<string, string> = {
@@ -35,32 +36,23 @@ const Navigation = memo(() => {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    let ticking = false;
-    
     const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 50);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      setIsScrolled(window.scrollY > 50);
     };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = () => {
     setIsDark(!isDark);
     document.documentElement.classList.toggle('dark');
-  }, [isDark]);
+  };
 
-  const scrollToSection = useCallback((id: string) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     element?.scrollIntoView({ behavior: 'smooth' });
     setIsOpen(false);
-  }, []);
+  };
 
   const navItems = [
     { label: t('nav.home'), id: 'hero' },
@@ -147,8 +139,6 @@ const Navigation = memo(() => {
       </div>
     </nav>
   );
-});
-
-Navigation.displayName = 'Navigation';
+};
 
 export default Navigation;

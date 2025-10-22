@@ -1,12 +1,11 @@
-import { memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import { Wifi, Car, Utensils, Shield, Users, Bath } from 'lucide-react';
 import studioRoom from '@/assets/studio-room.jpg';
 import suiteRoom from '@/assets/suite-room.jpg';
 import oneBedroomRoom from '@/assets/one-bedroom.jpg';
 
-const RoomsSection = memo(() => {
+const RoomsSection = () => {
   const rooms = [
     {
       id: 'studio',
@@ -61,13 +60,11 @@ const RoomsSection = memo(() => {
           {rooms.map((room, index) => (
             <div key={room.id} className="room-card scroll-reveal" style={{ animationDelay: `${index * 200}ms` }}>
               {/* Image */}
-              <div className="relative h-64 overflow-hidden rounded-t-xl">
-                <OptimizedImage
+              <div className="relative h-64 overflow-hidden">
+                <img 
                   src={room.image} 
                   alt={room.name}
-                  className="w-full h-64 transition-transform duration-300 hover:scale-110"
-                  objectFit="cover"
-                  rounded="none"
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
                 />
                 <div className="absolute top-4 right-4">
                   <Badge className="bg-petalz-gold text-petalz-black font-semibold">
@@ -138,8 +135,6 @@ const RoomsSection = memo(() => {
       </div>
     </section>
   );
-});
-
-RoomsSection.displayName = 'RoomsSection';
+};
 
 export default RoomsSection;

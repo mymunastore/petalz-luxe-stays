@@ -43,37 +43,41 @@ export const initGA = () => {
 export const initFacebookPixel = () => {
   if (typeof window === 'undefined') return;
 
-  // Strong check to prevent multiple initializations
-  if (window._analyticsInitialized) return;
+  // Check if already initialized using multiple methods
+  if ((window as any)._fbPixelInitialized || 
+      document.querySelector('script[src*="fbevents.js"]') ||
+      (window.fbq && (window.fbq as any).loaded)) {
+    return;
+  }
+
+  // Mark as initialized immediately to prevent race conditions
+  (window as any)._fbPixelInitialized = true;
 
   // Initialize fbq function if not exists
   if (!window.fbq) {
     window.fbq = function() {
       (window.fbq.q = window.fbq.q || []).push(arguments);
-    } as any;
-    window.fbq.q = [];
+    };
   }
   
-  // Only load script if it doesn't exist
-  if (!document.querySelector('script[src*="fbevents.js"]')) {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://connect.facebook.net/en_US/fbevents.js';
-    script.onload = () => {
-      // Initialize pixel only once
-      if (window.fbq && !window.fbq.loaded) {
-        window.fbq('init', FB_PIXEL_ID);
-        window.fbq('track', 'PageView');
-        window.fbq.loaded = true;
-      }
-    };
-    document.head.appendChild(script);
-  }
+  // Load Facebook Pixel script only once
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://connect.facebook.net/en_US/fbevents.js';
+  script.onload = () => {
+    // Initialize pixel only after script loads and if not already done
+    if (window.fbq && !(window.fbq as any).loaded) {
+      window.fbq('init', FB_PIXEL_ID);
+      window.fbq('track', 'PageView');
+      (window.fbq as any).loaded = true;
+    }
+  };
+  document.head.appendChild(script);
 };
 
 // Track page view
 export const trackPageView = (path: string, title?: string) => {
-  if (typeof window === 'undefined' || !window._analyticsInitialized) return;
+  if (typeof window === 'undefined') return;
   
   // Google Analytics
   if (window.gtag) {
@@ -83,8 +87,8 @@ export const trackPageView = (path: string, title?: string) => {
     });
   }
   
-  // Facebook Pixel - only track subsequent page views after initial load
-  if (window.fbq && window.fbq.loaded) {
+  // Facebook Pixel - only track subsequent page views, not the initial one
+  if (window.fbq && window._analyticsInitialized) {
     window.fbq('track', 'PageView');
   }
 };
