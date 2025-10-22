@@ -4,6 +4,11 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Gift } from 'lucide-react';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import { z } from 'zod';
+
+const newsletterSchema = z.object({
+  email: z.string().email("Invalid email address").max(255, "Email must be less than 255 characters")
+});
 
 const NewsletterSection = () => {
   const { toast } = useToast();
@@ -15,16 +20,8 @@ const NewsletterSection = () => {
     setIsSubmitting(true);
 
     try {
-      // Validate email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        toast({
-          title: "Invalid Email",
-          description: "Please enter a valid email address.",
-          variant: "destructive"
-        });
-        return;
-      }
+      // Validate email with zod schema
+      const validatedData = newsletterSchema.parse({ email });
 
       // Simulate newsletter signup (in real app, this would call an API)
       await new Promise(resolve => setTimeout(resolve, 1500));
@@ -36,11 +33,20 @@ const NewsletterSection = () => {
 
       setEmail('');
     } catch (error) {
-      toast({
-        title: "Subscription Failed",
-        description: "Something went wrong. Please try again later.",
-        variant: "destructive"
-      });
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        toast({
+          title: "Validation Error",
+          description: firstError.message,
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Subscription Failed",
+          description: "Something went wrong. Please try again later.",
+          variant: "destructive"
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }

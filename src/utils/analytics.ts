@@ -110,7 +110,10 @@ export const trackEvent = (
     window.fbq('track', eventName, parameters);
   }
   
-  console.log('Analytics Event:', eventName, parameters);
+  // Only log analytics events in development
+  if (import.meta.env.DEV) {
+    console.log('Analytics Event:', eventName, parameters);
+  }
 };
 
 // Predefined event tracking functions

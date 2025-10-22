@@ -16,6 +16,18 @@ import {
   CreditCard,
   Building
 } from 'lucide-react';
+import { z } from 'zod';
+
+const bookingSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  phone: z.string().regex(/^(\+234|234|0)[789][01]\d{8}$/, "Please enter a valid Nigerian phone number"),
+  email: z.string().email("Invalid email address").max(255, "Email must be less than 255 characters").optional().or(z.literal("")),
+  checkIn: z.string().min(1, "Check-in date is required"),
+  checkOut: z.string().min(1, "Check-out date is required"),
+  roomType: z.string().min(1, "Please select a room type"),
+  guests: z.string().min(1, "Number of guests is required"),
+  message: z.string().max(1000, "Message must be less than 1000 characters").optional().or(z.literal(""))
+});
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -36,19 +48,15 @@ const ContactSection = () => {
     setIsSubmitting(true);
     
     try {
-      // Validate required fields
-      if (!formData.name || !formData.phone || !formData.checkIn || !formData.checkOut || !formData.roomType || !formData.guests) {
-        toast({
-          title: "Missing Information",
-          description: "Please fill in all required fields before submitting.",
-          variant: "destructive"
-        });
-        return;
-      }
+      // Validate with zod schema
+      const validatedData = bookingSchema.parse({
+        ...formData,
+        phone: formData.phone.replace(/\s/g, '') // Remove spaces for validation
+      });
 
       // Validate dates
-      const checkInDate = new Date(formData.checkIn);
-      const checkOutDate = new Date(formData.checkOut);
+      const checkInDate = new Date(validatedData.checkIn);
+      const checkOutDate = new Date(validatedData.checkOut);
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
@@ -58,6 +66,7 @@ const ContactSection = () => {
           description: "Check-in date cannot be in the past.",
           variant: "destructive"
         });
+        setIsSubmitting(false);
         return;
       }
       
@@ -67,41 +76,31 @@ const ContactSection = () => {
           description: "Check-out date must be after check-in date.",
           variant: "destructive"
         });
+        setIsSubmitting(false);
         return;
       }
 
-      // Validate phone number (basic Nigerian format)
-      const phoneRegex = /^(\+234|234|0)[789][01]\d{8}$/;
-      if (!phoneRegex.test(formData.phone.replace(/\s/g, ''))) {
-        toast({
-          title: "Invalid Phone Number",
-          description: "Please enter a valid Nigerian phone number.",
-          variant: "destructive"
-        });
-        return;
-      }
-
-    // Create WhatsApp message
-    const message = `Hello! I'd like to make a reservation at Petalz Home.
+      // Create WhatsApp message
+      const message = `Hello! I'd like to make a reservation at Petalz Home.
 
 *Booking Details:*
-📝 Name: ${formData.name}
-📞 Phone: ${formData.phone}
-${formData.email ? `✉️ Email: ${formData.email}` : ''}
-📅 Check-in: ${formData.checkIn}
-📅 Check-out: ${formData.checkOut}
-🏠 Room Type: ${formData.roomType === 'studio' ? 'Studio Executive (₦35,000)' : 
-                    formData.roomType === 'suite' ? 'Self Contained Suite (₦45,000)' : 
+📝 Name: ${validatedData.name}
+📞 Phone: ${validatedData.phone}
+${validatedData.email ? `✉️ Email: ${validatedData.email}` : ''}
+📅 Check-in: ${validatedData.checkIn}
+📅 Check-out: ${validatedData.checkOut}
+🏠 Room Type: ${validatedData.roomType === 'studio' ? 'Studio Executive (₦35,000)' : 
+                    validatedData.roomType === 'suite' ? 'Self Contained Suite (₦45,000)' : 
                     'One Bedroom Apartment (₦60,000)'}
-👥 Guests: ${formData.guests}
-${formData.message ? `💬 Special Requests: ${formData.message}` : ''}
+👥 Guests: ${validatedData.guests}
+${validatedData.message ? `💬 Special Requests: ${validatedData.message}` : ''}
 
 Please confirm availability and pricing. Thank you!`;
 
-    // Encode message for URL
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/2348144257874?text=${encodedMessage}`;
-    
+      // Encode message for URL
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/2348144257874?text=${encodedMessage}`;
+      
       // Simulate form processing delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
@@ -126,11 +125,20 @@ Please confirm availability and pricing. Thank you!`;
       });
       
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive"
-      });
+      if (error instanceof z.ZodError) {
+        const firstError = error.errors[0];
+        toast({
+          title: "Validation Error",
+          description: firstError.message,
+          variant: "destructive"
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "Something went wrong. Please try again.",
+          variant: "destructive"
+        });
+      }
     } finally {
       setIsSubmitting(false);
     }
