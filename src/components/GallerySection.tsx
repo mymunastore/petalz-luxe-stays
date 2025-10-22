@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { OptimizedImage } from '@/components/ui/optimized-image';
 
-const GallerySection = () => {
+const GallerySection = memo(() => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   const images = [
@@ -80,12 +81,14 @@ const GallerySection = () => {
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => openLightbox(index)}
             >
-              <img 
+              <OptimizedImage
                 src={image.src} 
                 alt={image.alt}
-                className={`w-full object-cover transition-transform duration-500 group-hover:scale-110 ${
+                className={`w-full transition-transform duration-500 group-hover:scale-110 ${
                   index === 0 ? 'h-96 lg:h-full' : 'h-64'
                 }`}
+                objectFit="cover"
+                rounded="xl"
               />
               
               {/* Overlay */}
@@ -175,6 +178,8 @@ const GallerySection = () => {
       </div>
     </section>
   );
-};
+});
+
+GallerySection.displayName = 'GallerySection';
 
 export default GallerySection;
